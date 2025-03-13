@@ -189,7 +189,7 @@ hr {
 footer {
   width:270px;
   float:left;
-  position:fixed;
+  position:relative;
   bottom:50px;
   -webkit-font-smoothing:subpixel-antialiased;
 }
@@ -203,7 +203,7 @@ footer {
 
   header, section, footer {
     float:none;
-    position:static;
+    position:relative;
     width:auto;
   }
 
