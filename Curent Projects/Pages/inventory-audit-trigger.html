@@ -3,24 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inventory Audit Trigger — Jean Batista</title>
-  <meta name="description" content="A short visual story: why silent UPDATEs are risky, what an inventory audit trigger looks like, and why the paper trail matters.">
+  <title>Inventory Audit Trigger, Jean Batista</title>
+  <meta name="description" content="Short visual story on silent UPDATEs, an inventory audit trigger, and why a paper trail matters.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --ink:#14151a;
-      --ink-soft:#2a2c34;
-      --muted:#5f636e;
-      --line:#e6e3dc;
-      --paper:#faf8f3;
-      --paper-warm:#f3efe5;
-      --panel:#fffdf8;
-      --accent:#b8521a;
-      --accent-soft:#f2e1d2;
+      --dark:#00102E;
+      --dark-2:#233452;
+      --body:#40464d;
+      --muted:#6d7685;
+      --accent:#d65050;
+      --accent-2:#b73f3f;
+      --accent-soft:#fce6e6;
+      --line:#eaeaea;
+      --bg:#ffffff;
+      --bg-soft:#f7f7f7;
+      --panel:#ffffff;
       --green:#2f7b55;
       --green-soft:#dfeee5;
       --red:#bd4c47;
@@ -32,16 +34,15 @@
     html{scroll-behavior:smooth}
     body{
       min-height:100vh;
-      background:var(--paper);
-      color:var(--ink);
-      font-family:'Inter Tight', system-ui, sans-serif;
+      background:var(--bg-soft);
+      color:var(--body);
+      font-family:'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
       font-size:16px;
-      line-height:1.55;
+      line-height:1.65;
       -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
     }
-    a{color:inherit;text-decoration:none;border-bottom:1px solid var(--line);transition:all .18s ease}
-    a:hover{color:var(--accent);border-color:var(--accent)}
+    a{color:var(--accent);text-decoration:none;transition:color .2s ease}
+    a:hover{color:var(--accent-2)}
     button{font:inherit}
 
     .deck-shell{
@@ -56,30 +57,33 @@
     .topbar{
       display:flex;
       justify-content:space-between;
-      align-items:baseline;
+      align-items:center;
       gap:22px;
-      padding-bottom:18px;
-      border-bottom:1px solid var(--line);
+      padding:14px 22px;
+      background:var(--dark);
+      border-radius:6px;
+      box-shadow:0 4px 14px rgba(0,16,46,.12);
     }
     .mark{
-      font-family:'Fraunces', serif;
+      font-family:'Roboto', sans-serif;
       font-size:18px;
-      font-weight:500;
-      letter-spacing:-.01em;
+      font-weight:700;
+      letter-spacing:.4px;
+      color:#fff;
     }
     .mark span{color:var(--accent)}
     .topbar nav{
       display:flex;
-      gap:22px;
+      gap:24px;
       flex-wrap:wrap;
       justify-content:flex-end;
-      font-family:'JetBrains Mono', monospace;
       font-size:12px;
-      letter-spacing:.06em;
+      letter-spacing:1.5px;
       text-transform:uppercase;
-      color:var(--muted);
+      font-weight:500;
     }
-    .topbar nav a{border:none}
+    .topbar nav a{color:rgba(255,255,255,.82)}
+    .topbar nav a:hover{color:var(--accent)}
 
     .stage{
       position:relative;
@@ -91,9 +95,9 @@
       min-height:620px;
       padding:44px;
       background:var(--panel);
-      border:1px solid var(--line);
       border-radius:6px;
-      box-shadow:0 22px 60px rgba(20,21,26,.07);
+      border-top:4px solid var(--accent);
+      box-shadow:0 18px 50px rgba(0,16,46,.08);
       display:grid;
       grid-template-rows:auto 1fr;
       gap:24px;
@@ -106,37 +110,37 @@
       justify-content:space-between;
       align-items:center;
       gap:18px;
-      font-family:'JetBrains Mono', monospace;
       font-size:12px;
-      letter-spacing:.15em;
+      letter-spacing:2.5px;
       text-transform:uppercase;
       color:var(--accent);
+      font-weight:700;
     }
-    .slide-count{color:var(--muted)}
+    .slide-count{color:var(--muted);font-weight:500;letter-spacing:1.5px}
     .slide h1,
     .slide h2{
-      font-family:'Fraunces', serif;
-      font-weight:400;
-      letter-spacing:-.025em;
-      line-height:1.02;
-      color:var(--ink);
+      font-family:'Roboto', sans-serif;
+      font-weight:900;
+      letter-spacing:-.4px;
+      line-height:1.05;
+      color:var(--dark);
     }
-    .slide h1{font-size:clamp(46px, 6.6vw, 82px);max-width:980px}
-    .slide h2{font-size:clamp(32px, 4.6vw, 58px);max-width:900px}
+    .slide h1{font-size:clamp(40px, 6vw, 68px);max-width:980px}
+    .slide h2{font-size:clamp(28px, 4.4vw, 50px);max-width:900px}
     .slide h2 em,
     .slide h1 em{
       color:var(--accent);
-      font-style:italic;
-      font-weight:300;
+      font-style:normal;
+      font-weight:900;
     }
     .lede{
       max-width:820px;
-      margin-top:18px;
-      font-size:19px;
-      color:var(--ink-soft);
-      line-height:1.5;
+      margin-top:14px;
+      font-size:18px;
+      color:var(--body);
+      line-height:1.6;
     }
-    .lede strong{color:var(--ink);font-weight:600}
+    .lede strong{color:var(--dark);font-weight:700}
     .content{
       display:grid;
       gap:22px;
@@ -148,12 +152,12 @@
       gap:28px;
     }
     .caption{
-      font-size:14px;
+      font-size:13px;
       color:var(--muted);
-      line-height:1.45;
+      line-height:1.5;
     }
 
-    /* ---------- before/after contrast ---------- */
+    /* before/after */
     .contrast-grid{
       display:grid;
       grid-template-columns:1fr 1fr;
@@ -164,7 +168,7 @@
       border:1px solid var(--line);
       border-radius:6px;
       padding:20px;
-      background:var(--paper);
+      background:var(--bg);
       display:grid;
       gap:12px;
       align-content:start;
@@ -181,11 +185,11 @@
       display:flex;
       align-items:center;
       gap:8px;
-      font-family:'JetBrains Mono', monospace;
       font-size:11px;
-      letter-spacing:.14em;
+      letter-spacing:2px;
       text-transform:uppercase;
-      color:var(--ink);
+      color:var(--dark);
+      font-weight:700;
     }
     .contrast-card.bad .contrast-label{color:var(--red)}
     .contrast-card.good .contrast-label{color:var(--green)}
@@ -201,17 +205,17 @@
     .contrast-card.bad .glyph{background:var(--red)}
     .contrast-card.good .glyph{background:var(--green)}
     .contrast-note{
-      color:var(--ink-soft);
+      color:var(--body);
       font-size:14.5px;
       line-height:1.5;
     }
-    .contrast-note strong{color:var(--ink)}
+    .contrast-note strong{color:var(--dark);font-weight:700}
 
-    /* ---------- tables ---------- */
+    /* tables */
     .data-table{
       width:100%;
       border-collapse:collapse;
-      font-family:'JetBrains Mono', monospace;
+      font-family:'Roboto Mono', monospace;
       font-size:12.5px;
       background:#fff;
       border:1px solid var(--line);
@@ -219,18 +223,18 @@
       overflow:hidden;
     }
     .data-table thead th{
-      background:var(--paper-warm);
+      background:var(--bg-soft);
       text-align:left;
       padding:8px 11px;
       font-weight:500;
-      color:var(--ink);
+      color:var(--dark);
       border-bottom:1px solid var(--line);
-      letter-spacing:.02em;
+      letter-spacing:.5px;
     }
     .data-table tbody td{
       padding:7px 11px;
       border-bottom:1px dotted var(--line);
-      color:var(--ink-soft);
+      color:var(--body);
       vertical-align:top;
     }
     .data-table tbody tr:last-child td{border-bottom:none}
@@ -239,15 +243,15 @@
     .data-table .acc{color:var(--accent);font-weight:500}
     .data-table .ghost{color:#bbb;font-style:italic}
     .table-label{
-      font-family:'JetBrains Mono', monospace;
       font-size:11px;
-      letter-spacing:.12em;
+      letter-spacing:1.5px;
       text-transform:uppercase;
       color:var(--muted);
       margin-bottom:6px;
+      font-weight:700;
     }
 
-    /* ---------- pipeline ---------- */
+    /* pipeline */
     .pipeline{
       display:grid;
       grid-template-columns:1fr auto 1fr auto 1fr;
@@ -259,45 +263,54 @@
       min-height:208px;
       padding:22px;
       border:1px solid var(--line);
-      background:var(--paper);
+      background:var(--bg);
       border-radius:6px;
       display:grid;
       align-content:start;
       gap:12px;
+      border-top:3px solid var(--accent);
     }
     .pipe-step strong{
       display:block;
-      font-family:'Fraunces', serif;
-      font-size:38px;
+      font-family:'Roboto', sans-serif;
+      font-size:32px;
       line-height:1;
       color:var(--accent);
+      font-weight:900;
     }
     .pipe-step h3{
-      font-family:'Fraunces', serif;
-      font-size:22px;
-      font-weight:500;
-      line-height:1.1;
-      letter-spacing:-.01em;
+      font-family:'Roboto', sans-serif;
+      font-size:20px;
+      font-weight:700;
+      line-height:1.2;
+      color:var(--dark);
     }
     .pipe-step p{
-      color:var(--ink-soft);
+      color:var(--body);
       font-size:14.5px;
-      line-height:1.45;
+      line-height:1.55;
+    }
+    .pipe-step code{
+      background:var(--bg-soft);
+      padding:1px 5px;
+      border-radius:3px;
+      font-size:13px;
+      color:var(--accent);
     }
     .pipe-arrow{
       align-self:center;
       color:var(--accent);
-      font-family:'Fraunces', serif;
-      font-size:34px;
+      font-size:28px;
+      font-weight:700;
     }
 
-    /* ---------- code blocks ---------- */
+    /* code blocks */
     .formula{
       padding:22px;
-      background:var(--ink);
-      color:#f4ece0;
+      background:var(--dark);
+      color:#e4ecf6;
       border-radius:6px;
-      font-family:'JetBrains Mono', monospace;
+      font-family:'Roboto Mono', monospace;
       font-size:13.5px;
       line-height:1.65;
       overflow:auto;
@@ -305,10 +318,10 @@
     .formula.compact{font-size:12.8px;padding:18px}
     .formula .kw{color:#f5b98f;font-weight:500}
     .formula .ty{color:#9fd0ad}
-    .formula .cm{color:#7e8089;font-style:italic}
+    .formula .cm{color:#8693a8;font-style:italic}
     .formula .lit{color:#e6d18a}
 
-    /* ---------- insights ---------- */
+    /* insights */
     .insight-list{
       display:grid;
       gap:12px;
@@ -317,19 +330,21 @@
     .insight{
       padding:14px 16px;
       border-left:3px solid var(--accent);
-      background:var(--paper);
-      color:var(--ink-soft);
+      background:var(--bg-soft);
+      color:var(--body);
       border-radius:0 6px 6px 0;
       font-size:15px;
-      line-height:1.45;
+      line-height:1.5;
     }
     .insight strong{
       display:block;
-      color:var(--ink);
+      color:var(--dark);
       margin-bottom:4px;
+      font-weight:700;
     }
+    .insight em{color:var(--accent);font-style:normal;font-weight:700}
 
-    /* ---------- receipt demo ---------- */
+    /* receipt */
     .receipt-demo{
       display:grid;
       grid-template-columns:minmax(0, 1fr) auto minmax(0, 1fr);
@@ -343,34 +358,35 @@
       gap:10px;
     }
     .step-label{
-      font-family:'JetBrains Mono', monospace;
       font-size:11px;
-      letter-spacing:.14em;
+      letter-spacing:1.5px;
       text-transform:uppercase;
       color:var(--accent);
+      font-weight:700;
     }
     .receipt-arrow{
       align-self:center;
       color:var(--accent);
-      font-family:'Fraunces', serif;
-      font-size:42px;
+      font-size:38px;
+      font-weight:700;
     }
     .receipt-card{
       background:#fff;
       border:1px dashed var(--accent);
       border-radius:6px;
       padding:20px 22px;
-      box-shadow:0 8px 24px rgba(184,82,26,.08);
-      font-family:'JetBrains Mono', monospace;
+      box-shadow:0 8px 24px rgba(214,80,80,.08);
+      font-family:'Roboto Mono', monospace;
     }
     .receipt-header{
       font-size:11px;
-      letter-spacing:.14em;
+      letter-spacing:1.5px;
       text-transform:uppercase;
       color:var(--accent);
       border-bottom:1px dashed var(--line);
       padding-bottom:10px;
       margin-bottom:12px;
+      font-weight:700;
     }
     .receipt-row{
       display:flex;
@@ -383,14 +399,11 @@
     }
     .receipt-row:last-child{border-bottom:none}
     .receipt-row > span{color:var(--muted)}
-    .receipt-row > strong{
-      color:var(--ink);
-      font-weight:500;
-    }
+    .receipt-row > strong{color:var(--dark);font-weight:700}
     .receipt-row .flag{color:var(--red);text-decoration:line-through;text-decoration-color:var(--red)}
     .receipt-row .ok{color:var(--green)}
 
-    /* ---------- takeaway ---------- */
+    /* takeaway */
     .takeaway-grid{
       display:grid;
       grid-template-columns:repeat(4, minmax(0, 1fr));
@@ -400,43 +413,47 @@
     .takeaway{
       padding:20px;
       border:1px solid var(--line);
-      background:var(--paper);
+      background:var(--bg);
       border-radius:6px;
       min-height:220px;
+      border-top:3px solid var(--accent);
     }
     .takeaway .num{
       display:block;
-      font-family:'JetBrains Mono', monospace;
       color:var(--accent);
       margin-bottom:18px;
-      font-size:13px;
-      letter-spacing:.06em;
+      font-size:12px;
+      letter-spacing:1.5px;
+      font-weight:700;
+      text-transform:uppercase;
     }
     .takeaway h3{
-      font-family:'Fraunces', serif;
-      font-size:22px;
-      font-weight:500;
-      line-height:1.15;
+      font-family:'Roboto', sans-serif;
+      font-size:20px;
+      font-weight:700;
+      line-height:1.2;
       margin-bottom:8px;
-      color:var(--ink);
+      color:var(--dark);
     }
     .takeaway p{
-      color:var(--ink-soft);
+      color:var(--body);
       font-size:14.5px;
-      line-height:1.5;
+      line-height:1.55;
     }
 
     .final-links{
       display:flex;
       flex-wrap:wrap;
-      gap:16px;
-      margin-top:18px;
-      font-family:'JetBrains Mono', monospace;
-      font-size:13px;
+      gap:18px;
+      margin-top:20px;
+      font-size:12px;
       color:var(--accent);
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      font-weight:700;
     }
 
-    /* ---------- controls ---------- */
+    /* controls */
     .deck-controls{
       display:grid;
       grid-template-columns:auto 1fr auto;
@@ -444,25 +461,27 @@
       gap:18px;
     }
     .arrow{
-      width:44px;
-      height:44px;
-      border:1px solid var(--line);
+      width:46px;
+      height:46px;
+      border:2px solid var(--line);
       border-radius:50%;
-      background:var(--panel);
-      color:var(--ink);
+      background:#fff;
+      color:var(--dark);
       display:grid;
       place-items:center;
       cursor:pointer;
-      font-size:26px;
+      font-size:24px;
       line-height:1;
-      transition:all .18s ease;
+      transition:all .2s ease;
+      font-weight:700;
     }
     .arrow:hover,
     .arrow:focus-visible{
-      background:var(--ink);
-      color:var(--paper);
-      border-color:var(--ink);
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
       outline:none;
+      transform:translateY(-1px);
     }
     .dots{
       display:flex;
@@ -482,14 +501,14 @@
       transition:all .18s ease;
     }
     .dot[aria-current="true"]{
-      width:28px;
+      width:30px;
       border-radius:999px;
       background:var(--accent);
       border-color:var(--accent);
     }
 
     @keyframes rise{
-      from{opacity:0;transform:translateY(8px)}
+      from{opacity:0;transform:translateY(10px)}
       to{opacity:1;transform:none}
     }
 
@@ -514,7 +533,7 @@
       .deck-shell{width:min(100% - 24px, var(--max));gap:16px}
       .slide{padding:20px;border-radius:4px}
       .slide-kicker{align-items:flex-start;flex-direction:column;gap:8px}
-      .slide h1{font-size:38px}
+      .slide h1{font-size:36px}
       .slide h2{font-size:28px}
       .lede{font-size:17px}
       .formula{font-size:12px;padding:14px}
@@ -527,45 +546,44 @@
 <body>
   <main class="deck-shell">
     <header class="topbar">
-      <a class="mark" href="index.html">Jean Batista<span>.</span></a>
+      <a class="mark" href="../../index.html">Jean Batista<span>.</span></a>
       <nav aria-label="Project links">
-        <a href="index.html#work">Work</a>
-        <a href="FoodDatabase Design.docx">Design doc</a>
+        <a href="../../index.html#work">Portfolio</a>
+        <a href="../Documents/Food%20Inventory_Audit_Report.docx">Design doc</a>
       </nav>
     </header>
 
     <section class="stage" aria-live="polite">
 
-      <!-- 1. HOOK -->
       <article class="slide" data-slide>
         <div class="slide-kicker"><span>Why audit triggers exist</span><span class="slide-count"></span></div>
         <div class="content">
-          <h1>Fixing values. <em>Paper Trails.</em></h1>
-          <p class="lede">A product was labeled <strong>40,000 mg of sodium per serving</strong>, physically impossible. An analyst quietly corrects it to 590 mg. The number is right now. But the fact that it was ever wrong, who fixed it, and when, all erased in a single UPDATE.</p>
+          <h1>Fix the value. Keep the <em>paper trail.</em></h1>
+          <p class="lede">A product landed on the books with <strong>40,000 mg of sodium per serving</strong>, a physically impossible number. An analyst quietly corrects the row to 590 mg. The current number reads clean. The earlier value, the person who pushed the fix, and the time of the change all vanish in one UPDATE.</p>
 
           <div class="contrast-grid">
             <div class="contrast-card bad">
               <div class="contrast-label"><span class="glyph">✕</span> Without an audit trigger</div>
-              <div class="table-label">product_nutrition (after UPDATE)</div>
+              <div class="table-label">product_nutrition after UPDATE</div>
               <table class="data-table">
                 <thead><tr><th>product_id</th><th>sodium_mg</th></tr></thead>
                 <tbody>
                   <tr><td>412</td><td class="ok">590</td></tr>
                 </tbody>
               </table>
-              <p class="contrast-note"><strong>What it used to be:</strong> erased. <strong>When it changed:</strong> unknown. <strong>If the fix was wrong:</strong> no rollback path.</p>
+              <p class="contrast-note"><strong>The earlier value:</strong> erased. <strong>The change time:</strong> unknown. <strong>If the fix is wrong:</strong> no rollback path.</p>
             </div>
 
             <div class="contrast-card good">
               <div class="contrast-label"><span class="glyph">✓</span> With an audit trigger</div>
-              <div class="table-label">product_nutrition (after UPDATE)</div>
+              <div class="table-label">product_nutrition after UPDATE</div>
               <table class="data-table">
                 <thead><tr><th>product_id</th><th>sodium_mg</th></tr></thead>
                 <tbody>
                   <tr><td>412</td><td class="ok">590</td></tr>
                 </tbody>
               </table>
-              <div class="table-label" style="margin-top:4px">nutrition_audit (auto-written)</div>
+              <div class="table-label" style="margin-top:4px">nutrition_audit auto-written</div>
               <table class="data-table">
                 <thead><tr><th>product_id</th><th>old</th><th>new</th><th>at</th></tr></thead>
                 <tbody>
@@ -577,45 +595,43 @@
         </div>
       </article>
 
-      <!-- 2. THE FLOW -->
       <article class="slide" data-slide hidden>
-        <div class="slide-kicker"><span>How it works</span><span class="slide-count"></span></div>
+        <div class="slide-kicker"><span>How the trigger works</span><span class="slide-count"></span></div>
         <div class="content">
-          <h2>An inventory audit trigger, in <em>three steps.</em></h2>
-          <p class="lede">No application code, the database itself writes the receipt.</p>
+          <h2>An inventory audit trigger in <em>three steps.</em></h2>
+          <p class="lede">No application code in the loop. The database writes the receipt for you.</p>
 
           <div class="pipeline">
             <div class="pipe-step">
               <strong>01</strong>
               <h3>UPDATE issued</h3>
-              <p>An analyst, a script, or a vendor edits a value in <code>product_nutrition</code> , fixing a bad sodium reading, correcting a typo, updating a label.</p>
+              <p>An analyst, a script, or a vendor edits a value in <code>product_nutrition</code>. Fix a bad sodium reading, correct a typo, refresh a label.</p>
             </div>
             <div class="pipe-arrow">→</div>
             <div class="pipe-step">
               <strong>02</strong>
               <h3>Trigger fires</h3>
-              <p>SQLite fires the trigger automatically. It compares <code>OLD.value</code> to <code>NEW.value</code> and only acts when they actually differ.</p>
+              <p>SQLite fires the trigger on the write. The body compares <code>OLD.value</code> to <code>NEW.value</code> and acts only when the two differ.</p>
             </div>
             <div class="pipe-arrow">→</div>
             <div class="pipe-step">
               <strong>03</strong>
               <h3>Audit row written</h3>
-              <p>A new row lands in <code>nutrition_audit</code> with the old value, new value, and a timestamp. The application never touched it.</p>
+              <p>A new row lands in <code>nutrition_audit</code> with the old value, the new value, and a timestamp. The application stays out of the loop.</p>
             </div>
           </div>
         </div>
       </article>
 
-      <!-- 3. THE TRIGGER -->
       <article class="slide" data-slide hidden>
         <div class="slide-kicker"><span>The trigger</span><span class="slide-count"></span></div>
         <div class="content two-col">
           <div>
-            <h2>SQL. <em>Database Corrections.</em></h2>
-            <p class="lede">The whole audit story is just an empty log table plus a trigger that listens for one specific change. That is the entire feature.</p>
+            <h2>SQL writes the receipt for <em>every fix.</em></h2>
+            <p class="lede">The whole audit story is one empty log table plus a trigger listening for one change. The feature ends there.</p>
             <div class="insight-list">
-              <div class="insight"><strong>OLD / NEW</strong>Pseudo-rows that hold both versions of the record inside the trigger body.</div>
-              <div class="insight"><strong>WHEN clause</strong>Filters out no-op UPDATEs so the audit table doesn't fill with noise.</div>
+              <div class="insight"><strong>OLD and NEW</strong>Pseudo-rows hold both versions of the record inside the trigger body.</div>
+              <div class="insight"><strong>WHEN clause</strong>Filters out no-op UPDATEs so the audit table stays signal, not noise.</div>
               <div class="insight"><strong>CURRENT_TIMESTAMP</strong>The <em>when</em> of each change comes free from the database.</div>
             </div>
           </div>
@@ -642,7 +658,6 @@
         </div>
       </article>
 
-      <!-- 4. THE DEMO -->
       <article class="slide" data-slide hidden>
         <div class="slide-kicker"><span>Demo</span><span class="slide-count"></span></div>
         <div class="content">
@@ -660,7 +675,7 @@
             <div class="receipt-output">
               <p class="step-label">Database writes</p>
               <div class="receipt-card">
-                <div class="receipt-header">nutrition_audit · entry #1</div>
+                <div class="receipt-header">nutrition_audit, entry #1</div>
                 <div class="receipt-row"><span>product_id</span><strong>412</strong></div>
                 <div class="receipt-row"><span>column</span><strong>sodium_mg</strong></div>
                 <div class="receipt-row"><span>old value</span><strong class="flag">40,000 mg</strong></div>
@@ -669,42 +684,40 @@
               </div>
             </div>
           </div>
-
         </div>
       </article>
 
-      <!-- 5. PAPER TRAIL -->
       <article class="slide" data-slide hidden>
         <div class="slide-kicker"><span>Paper trail</span><span class="slide-count"></span></div>
         <div class="content">
-          <h2>Why every silent fix is <em>a silent risk.</em></h2>
+          <h2>Every silent fix is <em>a silent risk.</em></h2>
 
           <div class="takeaway-grid">
             <div class="takeaway">
-              <span class="num">01 · Reversibility</span>
+              <span class="num">01 Reversibility</span>
               <h3>Undo without archaeology</h3>
-              <p>If a fix turns out to be wrong, the previous value is one SELECT away.</p>
+              <p>If a fix turns out wrong, the earlier value is one SELECT away. You roll back in seconds.</p>
             </div>
             <div class="takeaway">
-              <span class="num">02 · Compliance</span>
-              <h3>Regulators expect it</h3>
-              <p>Audit logs are a baseline expectation in finance, healthcare, and food labeling. The current state of a row is half the story.</p>
+              <span class="num">02 Compliance</span>
+              <h3>Regulators expect logs</h3>
+              <p>Audit trails are baseline in finance, healthcare, and food labeling. The current state of a row tells half the story.</p>
             </div>
             <div class="takeaway">
-              <span class="num">03 · Attribution</span>
-              <h3>Who changed it</h3>
-              <p>Timestamp first. A user_id column fits in next. "Who edited this row in March?"</p>
+              <span class="num">03 Attribution</span>
+              <h3>Who changed the row</h3>
+              <p>Timestamp first. A user_id column drops in next. You answer the question, who edited row 412 in March.</p>
             </div>
             <div class="takeaway">
-              <span class="num">04 · Anomaly</span>
+              <span class="num">04 Anomaly</span>
               <h3>Patterns of change</h3>
-              <p>A single column getting hit every Monday is a story. The audit log surfaces data-quality problems before dashboards do.</p>
+              <p>One column getting hit every Monday is a story. The audit log surfaces data-quality problems before dashboards do.</p>
             </div>
           </div>
 
           <div class="final-links">
-            <a href="index.html#work">Back to portfolio</a>
-            <a href="FoodDatabase Design.docx">Full design doc</a>
+            <a href="../../index.html#work">Back to portfolio</a>
+            <a href="../Documents/Food%20Inventory_Audit_Report.docx">Full design doc</a>
           </div>
         </div>
       </article>
