@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freelance &amp; Client Work, Jean Batista</title>
+  <meta name="description" content="Short run-through of the freelance and extracurricular projects Jean Batista has built for clients, family, and small business owners outside the data analysis portfolio.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --dark:#00102E;
+      --dark-2:#233452;
+      --body:#40464d;
+      --muted:#6d7685;
+      --accent:#d65050;
+      --accent-2:#b73f3f;
+      --accent-soft:#fce6e6;
+      --line:#eaeaea;
+      --bg:#ffffff;
+      --bg-soft:#f7f7f7;
+      --green:#2f7b55;
+      --green-soft:#dfeee5;
+      --amber:#b8852b;
+      --amber-soft:#f8ecd0;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      background:var(--bg-soft);
+      color:var(--body);
+      font-family:'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.7;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:var(--accent);text-decoration:none;transition:color .2s ease}
+    a:hover{color:var(--accent-2)}
+
+    .shell{
+      width:min(var(--max), calc(100vw - 48px));
+      margin:0 auto;
+      padding:28px 0 60px;
+    }
+
+    /* topbar */
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:22px;
+      padding:14px 22px;
+      background:var(--dark);
+      border-radius:6px;
+      box-shadow:0 4px 14px rgba(0,16,46,.12);
+      margin-bottom:50px;
+    }
+    .mark{
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:.4px;
+      color:#fff;
+    }
+    .mark span{color:var(--accent)}
+    .topbar nav{
+      display:flex;
+      gap:24px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      font-size:12px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      font-weight:500;
+    }
+    .topbar nav a{color:rgba(255,255,255,.82)}
+    .topbar nav a:hover{color:var(--accent)}
+
+    /* hero */
+    .page-hero{
+      text-align:center;
+      padding:36px 24px 60px;
+      max-width:780px;
+      margin:0 auto;
+    }
+    .page-hero .kicker{
+      display:inline-block;
+      font-size:12px;
+      letter-spacing:3.5px;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:700;
+      margin-bottom:18px;
+      padding:6px 14px;
+      border:1px solid rgba(214,80,80,.4);
+      border-radius:30px;
+    }
+    .page-hero h1{
+      font-size:clamp(36px, 5vw, 56px);
+      font-weight:900;
+      color:var(--dark);
+      letter-spacing:-.5px;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+    .page-hero h1 .accent{color:var(--accent)}
+    .page-hero p{
+      font-size:18px;
+      color:var(--body);
+      line-height:1.65;
+      max-width:680px;
+      margin:0 auto;
+    }
+    .page-hero .divider{
+      width:50px;
+      height:3px;
+      background:var(--accent);
+      margin:24px auto 24px;
+    }
+
+    /* group label */
+    .group-label{
+      font-size:12px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:700;
+      margin:50px 0 20px;
+      padding-bottom:10px;
+      border-bottom:2px solid var(--accent);
+      display:inline-block;
+    }
+
+    /* client cards */
+    .client-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(380px, 1fr));
+      gap:24px;
+    }
+    .client-card{
+      background:#fff;
+      border-radius:8px;
+      padding:32px 30px;
+      border-top:4px solid var(--accent);
+      box-shadow:0 8px 26px rgba(0,16,46,.07);
+      display:flex;
+      flex-direction:column;
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .client-card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 14px 34px rgba(0,16,46,.12);
+    }
+    .client-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:14px;
+      margin-bottom:8px;
+    }
+    .client-name{
+      font-size:24px;
+      font-weight:900;
+      color:var(--dark);
+      letter-spacing:-.3px;
+      line-height:1.15;
+    }
+    .client-role{
+      font-size:13px;
+      color:var(--muted);
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      font-weight:500;
+      margin-bottom:20px;
+    }
+    .status{
+      flex-shrink:0;
+      font-size:10.5px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      font-weight:700;
+      padding:5px 12px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .status.done{
+      background:var(--green-soft);
+      color:var(--green);
+    }
+    .status.ongoing{
+      background:var(--amber-soft);
+      color:var(--amber);
+    }
+    .client-card h4{
+      font-size:11px;
+      letter-spacing:2.2px;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:700;
+      margin:18px 0 8px;
+    }
+    .client-card h4:first-of-type{margin-top:0}
+    .client-card p{
+      font-size:15px;
+      color:var(--body);
+      line-height:1.65;
+    }
+    .client-card .visit{
+      margin-top:22px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      color:var(--accent);
+    }
+    .client-card .visit::after{
+      content:" →";
+      transition:transform .2s ease;
+      display:inline-block;
+    }
+    .client-card .visit:hover::after{transform:translateX(4px)}
+
+    /* outro */
+    .outro{
+      margin-top:60px;
+      background:linear-gradient(135deg, var(--dark) 0%, var(--dark-2) 100%);
+      color:#fff;
+      padding:50px 32px;
+      text-align:center;
+      border-radius:8px;
+      box-shadow:0 14px 36px rgba(0,16,46,.14);
+    }
+    .outro h2{
+      color:#fff;
+      font-size:clamp(22px, 3vw, 30px);
+      font-weight:700;
+      margin-bottom:14px;
+    }
+    .outro p{
+      color:rgba(255,255,255,.82);
+      font-size:16px;
+      max-width:580px;
+      margin:0 auto 24px;
+      line-height:1.65;
+    }
+    .roll-button{
+      display:inline-block;
+      padding:13px 32px;
+      background:var(--accent);
+      color:#fff;
+      font-weight:700;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      font-size:12.5px;
+      border-radius:30px;
+      border:2px solid var(--accent);
+      transition:all .25s ease;
+      margin:4px 6px;
+    }
+    .roll-button:hover{
+      background:transparent;
+      color:#fff;
+      transform:translateY(-2px);
+      box-shadow:0 8px 22px rgba(214,80,80,.28);
+    }
+    .roll-button.outline{
+      background:transparent;
+      border:2px solid rgba(255,255,255,.55);
+      color:#fff;
+    }
+    .roll-button.outline:hover{
+      background:#fff;
+      color:var(--dark);
+      border-color:#fff;
+    }
+
+    @media (max-width: 760px){
+      .shell{width:min(100% - 34px, var(--max))}
+      .topbar{flex-direction:column;align-items:flex-start;gap:14px}
+      .page-hero{padding:20px 8px 40px}
+      .client-grid{grid-template-columns:1fr}
+      .client-card{padding:26px 22px}
+      .outro{padding:40px 22px}
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+
+    <header class="topbar">
+      <a class="mark" href="../../index.html">Jean Batista<span>.</span></a>
+      <nav aria-label="Section links">
+        <a href="../../index.html#work">Portfolio</a>
+        <a href="../../index.html#about">About</a>
+        <a href="../../index.html#contact">Contact</a>
+      </nav>
+    </header>
+
+    <section class="page-hero">
+      <span class="kicker">Freelance &amp; client work</span>
+      <h1>Built for <span class="accent">real people</span>.</h1>
+      <div class="divider"></div>
+      <p>You meet the people I help. Family, friends, and small business owners reach out when they need a site, a sheet, or a system finished. Quick run-through of each client, what they came with, and what I built.</p>
+    </section>
+
+    <span class="group-label">Shipped</span>
+    <div class="client-grid">
+
+      <article class="client-card">
+        <div class="client-head">
+          <div class="client-name">Chris Michael</div>
+          <span class="status done">Shipped</span>
+        </div>
+        <div class="client-role">Actor, New York</div>
+
+        <h4>What he came with</h4>
+        <p>Auditions and casting directors expected a portfolio link in the bio. Chris had headshots, a hero reel, and a project list living across email attachments and a phone.</p>
+
+        <h4>What I built</h4>
+        <p>A single-page acting site at <a href="https://www.chrismichaelart.com/#home" target="_blank" rel="noopener noreferrer">chrismichaelart.com</a>. Hero reel up top, headshot grid, project list, and a contact flow. Chris updates the page with new credits as the roles come in.</p>
+
+        <a class="visit" href="https://www.chrismichaelart.com/#home" target="_blank" rel="noopener noreferrer">Visit chrismichaelart.com</a>
+      </article>
+
+      <article class="client-card">
+        <div class="client-head">
+          <div class="client-name">Sophia Caridad</div>
+          <span class="status done">Shipped</span>
+        </div>
+        <div class="client-role">Fashion Designer</div>
+
+        <h4>What she came with</h4>
+        <p>Her portfolio lived in PDF attachments and a printed lookbook. Brands kept asking for a public link they could pass around.</p>
+
+        <h4>What I built</h4>
+        <p>A portfolio site with a project gallery and look-book pages. Mobile-first layout, since most fashion-industry traffic lands on phones.</p>
+
+        <a class="visit" href="https://sophiacaridad7.wixsite.com/mysite-1/projects-8" target="_blank" rel="noopener noreferrer">Visit Sophia's portfolio</a>
+      </article>
+
+      <article class="client-card">
+        <div class="client-head">
+          <div class="client-name">Christian</div>
+          <span class="status done">Shipped</span>
+        </div>
+        <div class="client-role">Apartment Complex Super, Battery Park</div>
+
+        <h4>What he came with</h4>
+        <p>Paper notebooks for unit inspections, work orders, and parts inventory. Information lived across four notebooks and a handful of Post-its, and follow-ups slipped through.</p>
+
+        <h4>What I built</h4>
+        <p>An inventory tracking sheet with form-style inputs for unit logs, parts, and dates. One file, one tab, no more lost follow-ups. Built to read on a phone in the field.</p>
+      </article>
+
+    </div>
+
+    <span class="group-label">In progress</span>
+    <div class="client-grid">
+
+      <article class="client-card">
+        <div class="client-head">
+          <div class="client-name">Interior Designer</div>
+          <span class="status ongoing">Ongoing</span>
+        </div>
+        <div class="client-role">Residential Interiors</div>
+
+        <h4>What she came with</h4>
+        <p>A list of completed home and apartment projects with no place to send a prospective client. The work lived on a phone camera roll and in a few Instagram saves.</p>
+
+        <h4>What I am building</h4>
+        <p>A portfolio site with project galleries, before-and-after layouts, and a short bio. Site goes live once the photo set is locked.</p>
+      </article>
+
+      <article class="client-card">
+        <div class="client-head">
+          <div class="client-name">Computer &amp; Phone Repair Shop</div>
+          <span class="status ongoing">Ongoing</span>
+        </div>
+        <div class="client-role">Small Business, Local Repair</div>
+
+        <h4>What he came with</h4>
+        <p>A local repair business losing walk-ins to online directories ranking above the storefront. He needed a presence pulling in nearby customers searching for screen and phone repairs.</p>
+
+        <h4>What I am building</h4>
+        <p>A small-business site with services, hours, location, contact, and review pull-ins. Built for fast load on mobile, since most repair searches happen on a broken phone.</p>
+      </article>
+
+    </div>
+
+    <section class="outro">
+      <h2>Got a project sitting in a notebook?</h2>
+      <p>If you have a sheet, a site, or a workflow stuck in your head, I am open to small client work alongside the full-time and analyst roles I am hunting for.</p>
+      <a class="roll-button" href="mailto:batistajean78@gmail.com">Email Me</a>
+      <a class="roll-button outline" href="../../index.html#work">Back to Portfolio</a>
+    </section>
+
+  </main>
+</body>
+</html>
