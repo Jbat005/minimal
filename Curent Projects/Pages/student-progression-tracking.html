@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Progression Tracking, Jean Batista</title>
+  <meta name="description" content="Portfolio slideshow for Jean Batista's student progression tracking project using classroom observation data and PDP measurement slides.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --dark:#00102E;
+      --body:#40464d;
+      --muted:#6d7685;
+      --accent:#d65050;
+      --accent-2:#b73f3f;
+      --line:#eaeaea;
+      --bg:#ffffff;
+      --bg-soft:#f7f7f7;
+      --panel:#ffffff;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      background:var(--bg-soft);
+      color:var(--body);
+      font-family:'Roboto', "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size:16px;
+      line-height:1.65;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:var(--accent);text-decoration:none;transition:color .2s ease}
+    a:hover{color:var(--accent-2)}
+    img{display:block;max-width:100%;height:auto}
+    button{font:inherit}
+
+    .deck-shell{
+      width:min(var(--max), calc(100vw - 48px));
+      min-height:100vh;
+      margin:0 auto;
+      padding:28px 0 34px;
+      display:grid;
+      grid-template-rows:auto 1fr auto;
+      gap:22px;
+    }
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:22px;
+      padding:14px 22px;
+      background:var(--dark);
+      border-radius:6px;
+      box-shadow:0 4px 14px rgba(0,16,46,.12);
+    }
+    .mark{
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:.4px;
+      color:#fff;
+    }
+    .mark span{color:var(--accent)}
+    .topbar nav{
+      display:flex;
+      gap:24px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      font-size:12px;
+      letter-spacing:1.5px;
+      text-transform:uppercase;
+      font-weight:500;
+    }
+    .topbar nav a{color:rgba(255,255,255,.82)}
+    .topbar nav a:hover{color:var(--accent)}
+
+    .stage{
+      position:relative;
+      min-height:620px;
+      display:grid;
+      align-items:stretch;
+    }
+    .slide{
+      min-height:620px;
+      padding:34px;
+      background:var(--panel);
+      border-radius:6px;
+      border-top:4px solid var(--accent);
+      box-shadow:0 18px 50px rgba(0,16,46,.08);
+      display:grid;
+      grid-template-rows:auto 1fr;
+      gap:22px;
+      animation:rise .32s ease both;
+      overflow:hidden;
+    }
+    .slide[hidden]{display:none}
+    .slide-kicker{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+      font-size:12px;
+      letter-spacing:2.5px;
+      text-transform:uppercase;
+      color:var(--accent);
+      font-weight:700;
+    }
+    .slide-count{color:var(--muted);font-weight:500;letter-spacing:1.5px}
+    .slide-frame{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 245px;
+      gap:22px;
+      align-items:center;
+    }
+    .slide-visual{
+      border:1px solid var(--line);
+      border-radius:6px;
+      background:#fff;
+      box-shadow:0 10px 28px rgba(0,16,46,.08);
+      overflow:hidden;
+    }
+    .slide-visual img{
+      width:100%;
+      aspect-ratio:16 / 9;
+      object-fit:contain;
+      background:#fff;
+    }
+    .slide-note{
+      display:grid;
+      gap:14px;
+      align-content:start;
+      padding-left:2px;
+    }
+    .slide-note h1,
+    .slide-note h2{
+      color:var(--dark);
+      font-size:24px;
+      font-weight:900;
+      line-height:1.12;
+      letter-spacing:-.2px;
+    }
+    .slide-note p{
+      color:var(--body);
+      font-size:15px;
+      line-height:1.55;
+    }
+    .metric{
+      padding:14px 0;
+      border-top:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+    }
+    .metric strong{
+      display:block;
+      color:var(--accent);
+      font-size:28px;
+      line-height:1;
+      font-weight:900;
+      margin-bottom:7px;
+    }
+    .metric span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+    .final-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:18px;
+      margin-top:4px;
+      font-size:12px;
+      color:var(--accent);
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      font-weight:700;
+    }
+
+    .deck-controls{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      align-items:center;
+      gap:18px;
+    }
+    .arrow{
+      width:46px;
+      height:46px;
+      border:2px solid var(--line);
+      border-radius:50%;
+      background:#fff;
+      color:var(--dark);
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      font-size:24px;
+      line-height:1;
+      transition:all .2s ease;
+      font-weight:700;
+    }
+    .arrow:hover,
+    .arrow:focus-visible{
+      background:var(--accent);
+      color:#fff;
+      border-color:var(--accent);
+      outline:none;
+      transform:translateY(-1px);
+    }
+    .dots{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      border:1px solid var(--muted);
+      background:transparent;
+      cursor:pointer;
+      padding:0;
+      transition:all .18s ease;
+    }
+    .dot[aria-current="true"]{
+      width:30px;
+      border-radius:999px;
+      background:var(--accent);
+      border-color:var(--accent);
+    }
+
+    @keyframes rise{
+      from{opacity:0;transform:translateY(10px)}
+      to{opacity:1;transform:none}
+    }
+
+    @media (max-width: 880px){
+      .deck-shell{width:min(100% - 34px, var(--max));padding-top:20px}
+      .topbar{align-items:flex-start;flex-direction:column}
+      .stage,.slide{min-height:calc(100vh - 168px)}
+      .slide{padding:26px}
+      .slide-frame{grid-template-columns:1fr;align-items:start}
+      .slide-note{grid-template-columns:1fr 1fr;gap:16px}
+      .slide-note h1,
+      .slide-note h2{font-size:22px}
+    }
+
+    @media (max-width: 560px){
+      body{font-size:15px}
+      .deck-shell{width:min(100% - 24px, var(--max));gap:16px}
+      .slide{padding:18px;border-radius:4px}
+      .slide-kicker{align-items:flex-start;flex-direction:column;gap:8px}
+      .slide-note{grid-template-columns:1fr}
+      .deck-controls{grid-template-columns:auto 1fr auto;gap:10px}
+      .arrow{width:40px;height:40px}
+      .dots{gap:6px}
+    }
+  </style>
+</head>
+<body>
+  <main class="deck-shell">
+    <header class="topbar">
+      <a class="mark" href="../../index.html">Jean Batista<span>.</span></a>
+      <nav aria-label="Project links">
+        <a href="../../index.html#work">Portfolio</a>
+        <a href="../Documents/PDP_Story_cleaned.pptx">PowerPoint</a>
+        <a href="../Documents/PDP_Working_Datasets.xlsx">Analysis workbook</a>
+      </nav>
+    </header>
+
+    <section class="stage" aria-live="polite">
+      <article class="slide" data-slide>
+        <div class="slide-kicker"><span>Student Progression Tracking</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide1.PNG" alt="PowerPoint slide asking whether focused practice improved classroom management, with 134 percent overall confidence growth.">
+          </figure>
+          <aside class="slide-note">
+            <h1>Focused practice produced a measurable classroom-management gain.</h1>
+            <p>The client needed a clear way to track growth across an 8-week measurement cycle and communicate what changed.</p>
+            <div class="metric"><strong>+134%</strong><span>overall confidence growth, from 2.0 to 4.7 on a 5-point scale</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Guiding Question</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide2.PNG" alt="PowerPoint slide defining the guiding classroom-management question and explaining social-emotional language and positive behavior supports.">
+          </figure>
+          <aside class="slide-note">
+            <h2>The project started with one practical client question.</h2>
+            <p>Did focused use of social-emotional language, positive behavior supports, routines, transitions, and preparation improve classroom management?</p>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Measurement Design</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide3.PNG" alt="PowerPoint slide summarizing 40 school days, three phases, 13 classrooms, and 10 rated measures per day.">
+          </figure>
+          <aside class="slide-note">
+            <h2>The tracking system separated starting habits from strategy use.</h2>
+            <p>The work covered 40 school days, 13 classrooms, three phases, and 10 daily rated measures.</p>
+            <div class="metric"><strong>40</strong><span>school days observed across baseline, strategy, and mastery phases</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Phase Trend</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide4.PNG" alt="PowerPoint slide showing confidence rising from baseline average 2.0 to strategy average 4.1 and mastery average 4.7.">
+          </figure>
+          <aside class="slide-note">
+            <h2>Confidence rose in steps after named strategies were introduced.</h2>
+            <p>The biggest lift came between Baseline and Strategy, then Mastery added another measurable gain.</p>
+            <div class="metric"><strong>4.7</strong><span>average confidence score by the Mastery phase</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Growth Areas</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide5.PNG" alt="PowerPoint slide comparing positive behavior supports growth with social-emotional language as the next target.">
+          </figure>
+          <aside class="slide-note">
+            <h2>Behavior supports moved fastest, while emotional language became the next focus.</h2>
+            <p>Praise, clear expectations, and reminders improved quickly. Reset language still needed planned practice.</p>
+            <div class="metric"><strong>+241%</strong><span>growth in positive behavior supports, from 1.38 to 4.69</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Added Growth</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide6.PNG" alt="PowerPoint slide showing Baseline to Strategy added 2.1 points and Strategy to Mastery added 0.6 points.">
+          </figure>
+          <aside class="slide-note">
+            <h2>The Mastery phase mattered.</h2>
+            <p>Stopping after the first strategy phase would have missed the final refinement gain.</p>
+            <div class="metric"><strong>+0.6</strong><span>additional points from Strategy to Mastery</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Confound Check</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide7.PNG" alt="PowerPoint slide showing 11 of 13 classrooms scored higher on the last visit than the first.">
+          </figure>
+          <aside class="slide-note">
+            <h2>Repeat-room checks reduced the easier-room explanation.</h2>
+            <p>If later rooms were simply easier, scores would not rise inside the same classrooms.</p>
+            <div class="metric"><strong>11 of 13</strong><span>classrooms scored higher on the last visit than the first</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Classroom Types</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide8.PNG" alt="PowerPoint slide comparing mastery averages for general education, ICT, and self-contained classrooms.">
+          </figure>
+          <aside class="slide-note">
+            <h2>Specialized settings improved too.</h2>
+            <p>Higher-need classrooms started lower, then showed gains after routines became consistent.</p>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Rating Check</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide9.PNG" alt="PowerPoint slide showing checklist completion correlated with transition and preparedness ratings.">
+          </figure>
+          <aside class="slide-note">
+            <h2>Checklist counts supported the self-ratings.</h2>
+            <p>Transition and preparation ratings moved with objective checklist completion, strengthening confidence in the measurement story.</p>
+            <div class="metric"><strong>r = 0.91</strong><span>transition checklist completion versus transition ratings</span></div>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Next Cycle</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide10.PNG" alt="PowerPoint slide listing next cycle actions: practice social-emotional language, lean into repeat visits, and test strategy days.">
+          </figure>
+          <aside class="slide-note">
+            <h2>The output ended with concrete next-cycle actions.</h2>
+            <p>The report turned the analysis into a practice plan: rehearse reset phrases, build a room rotation, and test strategy days inside each phase.</p>
+          </aside>
+        </div>
+      </article>
+
+      <article class="slide" data-slide hidden>
+        <div class="slide-kicker"><span>Takeaway</span><span class="slide-count"></span></div>
+        <div class="slide-frame">
+          <figure class="slide-visual">
+            <img src="../../assets/student-progression/slides/Slide11.PNG" alt="PowerPoint slide concluding that practice improved the score and social-emotional language should be measured next.">
+          </figure>
+          <aside class="slide-note">
+            <h2>The client received a results story and a practical improvement loop.</h2>
+            <p>Overall confidence rose from 2.0 to 4.7. Positive behavior supports became a strength, and social-emotional language became the clearest next target.</p>
+            <div class="final-links">
+              <a href="../../index.html#work">Back to portfolio</a>
+              <a href="../Documents/PDP_Story_cleaned.pptx">Original deck</a>
+              <a href="../Documents/PDP_Working_Datasets.xlsx">Analysis workbook</a>
+            </div>
+          </aside>
+        </div>
+      </article>
+    </section>
+
+    <footer class="deck-controls" aria-label="Slideshow controls">
+      <button class="arrow" type="button" data-prev aria-label="Previous slide" title="Previous slide">&lsaquo;</button>
+      <div class="dots" data-dots></div>
+      <button class="arrow" type="button" data-next aria-label="Next slide" title="Next slide">&rsaquo;</button>
+    </footer>
+  </main>
+
+  <script>
+    const slides = Array.from(document.querySelectorAll('[data-slide]'));
+    const dotsRoot = document.querySelector('[data-dots]');
+    const prevButton = document.querySelector('[data-prev]');
+    const nextButton = document.querySelector('[data-next]');
+    let current = 0;
+
+    const dots = slides.map((_, index) => {
+      const button = document.createElement('button');
+      button.className = 'dot';
+      button.type = 'button';
+      button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+      button.addEventListener('click', () => showSlide(index));
+      dotsRoot.appendChild(button);
+      return button;
+    });
+
+    function showSlide(index){
+      current = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        const isActive = slideIndex === current;
+        slide.hidden = !isActive;
+        slide.querySelector('.slide-count').textContent = `${String(current + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+        dots[slideIndex].setAttribute('aria-current', isActive ? 'true' : 'false');
+      });
+      window.scrollTo(0, 0);
+    }
+
+    prevButton.addEventListener('click', () => showSlide(current - 1));
+    nextButton.addEventListener('click', () => showSlide(current + 1));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') showSlide(current - 1);
+      if (event.key === 'ArrowRight') showSlide(current + 1);
+      if (event.key === 'Home') showSlide(0);
+      if (event.key === 'End') showSlide(slides.length - 1);
+    });
+
+    showSlide(0);
+  </script>
+</body>
+</html>
