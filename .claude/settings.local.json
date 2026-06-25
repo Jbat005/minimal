@@ -3,7 +3,10 @@
     "allow": [
       "mcp__Claude_Preview__preview_start",
       "Bash(npm install *)",
-      "Bash(node gen.js)"
+      "Bash(node gen.js)",
+      "Bash(extract-text \"C:/Users/jeanb/Desktop/June Resume/Jean_Batista_Resume_ClaudeCorps.docx\")",
+      "Bash(npm --version)",
+      "Bash(npm run *)"
     ]
   }
 }

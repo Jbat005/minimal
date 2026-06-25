@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/* Class-based dark variant so the OS theme never overrides the carefully
+   tuned light palette. (The hand-writing component ships dark: classes;
+   pinning the variant to a class we never add keeps the design intentional.) */
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  /* ---- type ---- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-serif: "Cormorant", ui-serif, Georgia, "Times New Roman", serif;
+
+  /* ---- monochrome palette (warm-neutral, no chroma) ---- */
+  --color-paper: #f7f6f3; /* page background — warm off-white */
+  --color-paper-2: #f0eee9; /* alternate section background */
+  --color-paper-3: #e9e6df; /* deepest light tone */
+  --color-ink: #0a0a0a; /* primary text / near-black */
+  --color-ink-2: #141414; /* dark section background */
+  --color-graphite: #2b2b2b; /* strong secondary */
+  --color-muted: #52525b; /* secondary text — AA on paper */
+  --color-faint: #71717a; /* tertiary / meta — AA on paper */
+  --color-line: #e4e1d9; /* hairline borders */
+  --color-line-2: #d8d4ca; /* stronger hairline */
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    /* The deck owns navigation; the page itself never scrolls vertically. */
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  /* Respect reduced-motion: collapse all transitions/animations. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  /* Tracked-out uppercase eyebrow/label used across sections. */
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-faint);
+  }
+
+  /* Thin underline-on-hover for inline links. */
+  .link-underline {
+    background-image: linear-gradient(var(--color-ink), var(--color-ink));
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    transition: background-size 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}

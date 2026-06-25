@@ -95,7 +95,7 @@ const doc = new Document({
       new Paragraph({
         alignment: AlignmentType.CENTER,
         spacing: { after: 80 },
-        children: [ new TextRun({ text: "Data Analyst & Developer", bold: true, size: 24, color: GREEN }) ],
+        children: [ new TextRun({ text: "Data Analyst", bold: true, size: 24, color: GREEN }) ],
       }),
       new Paragraph({
         alignment: AlignmentType.CENTER,
@@ -117,7 +117,7 @@ const doc = new Document({
       new Paragraph({
         spacing: { after: 40 },
         children: [ new TextRun({ size: 21, text:
-          "Data analyst and developer pursuing an M.S. in Data Science, with hands-on freelance " +
+          "Data analyst and developer with an M.S. in Data Science and hands-on freelance " +
           "experience turning messy data and real client needs into clean reports, web tools, and " +
           "decisions people can act on. Bilingual in English and Spanish. Strong across Python, SQL, " +
           "and statistical modeling, with practical end-to-end web development. Open to Data Analyst, " +
@@ -153,7 +153,7 @@ const doc = new Document({
 
       // ---------- education ----------
       heading("Education"),
-      entryTitle("M.S., Data Science", "2025 - Present"),
+      entryTitle("M.S., Data Science", "2025 - 2026"),
       subtitle("Juniata College | Huntingdon, PA"),
       bullet("Coursework: Data Mining, Machine Learning, Data Visualization, Big Data, and Database Systems."),
       bullet("Capstone-track project: large-scale exploratory analysis of USDA branded food data."),

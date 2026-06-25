@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Observations Study, Jean Batista</title>
+  <meta name="description" content="Research-backed classroom intervention study for Rachel Morales at PS 196, redesigned as a black-and-white project case study and PowerPoint walkthrough.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --paper: #f7f6f3;
+      --paper-2: #f0eee9;
+      --paper-3: #e9e6df;
+      --ink: #0a0a0a;
+      --ink-2: #141414;
+      --graphite: #2b2b2b;
+      --muted: #52525b;
+      --faint: #71717a;
+      --line: #e4e1d9;
+      --line-2: #d8d4ca;
+      --max: 1120px;
+      --serif: "Cormorant", Georgia, serif;
+      --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; height: auto; }
+
+    .page {
+      min-height: 100vh;
+    }
+    .wrap {
+      width: min(var(--max), calc(100vw - 40px));
+      margin: 0 auto;
+    }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: color-mix(in srgb, var(--paper) 92%, transparent);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .brand {
+      font-weight: 700;
+      letter-spacing: 0.01em;
+    }
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .links a {
+      background-image: linear-gradient(var(--ink), var(--ink));
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      background-size: 0 1px;
+      transition: background-size 0.25s ease, color 0.25s ease;
+    }
+    .links a:hover {
+      color: var(--ink);
+      background-size: 100% 1px;
+    }
+
+    .hero {
+      padding: 38px 0 68px;
+    }
+    .hero-media {
+      overflow: hidden;
+      border: 1px solid var(--line-2);
+      background: var(--paper-2);
+    }
+    .hero-media img {
+      width: 100%;
+      aspect-ratio: 16 / 4.6;
+      object-fit: cover;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 56px;
+      align-items: end;
+      padding-top: 54px;
+    }
+    .eyebrow {
+      color: var(--faint);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: var(--serif);
+      font-weight: 500;
+      line-height: 1.02;
+      letter-spacing: 0;
+    }
+    h1 {
+      max-width: 820px;
+      margin-top: 18px;
+      font-size: clamp(56px, 8vw, 104px);
+    }
+    h2 {
+      font-size: clamp(38px, 5vw, 64px);
+    }
+    h3 {
+      font-size: 30px;
+    }
+    .lead {
+      max-width: 760px;
+      margin: 28px 0 0;
+      color: var(--graphite);
+      font-size: clamp(18px, 2vw, 23px);
+      line-height: 1.45;
+    }
+    .metric-large strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 76px;
+      font-weight: 500;
+      line-height: 0.9;
+    }
+    .metric-large span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    section {
+      border-top: 1px solid var(--line);
+      padding: 70px 0;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: 300px minmax(0, 1fr);
+      gap: 76px;
+      align-items: start;
+    }
+    .section-copy p {
+      margin: 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 17px;
+    }
+    .section-copy p + p {
+      margin-top: 18px;
+    }
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 22px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .source-link span {
+      background-image: linear-gradient(var(--ink), var(--ink));
+      background-position: 0 100%;
+      background-repeat: no-repeat;
+      background-size: 100% 1px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border: 1px solid var(--line);
+      background: var(--line);
+      gap: 1px;
+    }
+    .stat {
+      min-height: 142px;
+      background: var(--paper);
+      padding: 28px;
+    }
+    .stat strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 52px;
+      font-weight: 500;
+      line-height: 0.92;
+    }
+    .stat span {
+      display: block;
+      margin-top: 16px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+    .step {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 34px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .step-number {
+      color: var(--ink);
+      font-family: var(--serif);
+      font-size: 44px;
+      line-height: 1;
+    }
+    .step h3 {
+      margin-bottom: 8px;
+      font-size: 28px;
+    }
+    .step p {
+      margin: 0;
+      max-width: 700px;
+      color: var(--muted);
+    }
+
+    .results-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) 320px;
+      gap: 56px;
+      align-items: center;
+    }
+    .bars {
+      display: grid;
+      gap: 28px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 96px minmax(0, 1fr) 44px;
+      gap: 18px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .bar-track {
+      height: 36px;
+      background: var(--paper-3);
+      position: relative;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: var(--ink);
+    }
+    .bar-row strong {
+      color: var(--ink);
+      font-weight: 600;
+      text-align: right;
+    }
+    .chart-note {
+      margin-top: 22px;
+      color: var(--faint);
+      font-size: 13px;
+    }
+    .callout {
+      background: var(--ink);
+      color: var(--paper);
+      padding: 34px;
+    }
+    .callout strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 70px;
+      font-weight: 500;
+      line-height: 0.9;
+    }
+    .callout span {
+      display: block;
+      margin-top: 18px;
+      color: rgb(247 246 243 / 0.76);
+      font-size: 16px;
+    }
+
+    .signals {
+      display: grid;
+      gap: 22px;
+    }
+    .signal {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) 86px;
+      gap: 18px;
+      align-items: center;
+    }
+    .signal-name {
+      color: var(--graphite);
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .signal-track {
+      position: relative;
+      height: 32px;
+      background: var(--paper-3);
+    }
+    .signal-base,
+    .signal-mastery {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+    }
+    .signal-base {
+      background: var(--line-2);
+    }
+    .signal-mastery {
+      top: 10px;
+      height: 12px;
+      background: var(--ink);
+    }
+    .signal-value {
+      color: var(--muted);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .evidence {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1px;
+      border: 1px solid var(--line);
+      background: var(--line);
+    }
+    .evidence-item {
+      background: var(--paper);
+      min-height: 220px;
+      padding: 28px;
+    }
+    .evidence-item strong {
+      display: block;
+      font-family: var(--serif);
+      font-size: 48px;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .evidence-item p {
+      margin: 18px 0 0;
+      color: var(--muted);
+    }
+
+    .deck-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 24px;
+    }
+    .slide-card {
+      background: var(--paper-2);
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .slide-card img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: var(--paper);
+    }
+    .slide-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 14px 16px;
+      color: var(--faint);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding: 44px 0 54px;
+      border-top: 1px solid var(--line);
+      color: var(--faint);
+      font-size: 13px;
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid,
+      .section-grid,
+      .results-grid {
+        grid-template-columns: 1fr;
+        gap: 34px;
+      }
+      .stats,
+      .evidence,
+      .deck-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .metric-large {
+        max-width: 280px;
+      }
+    }
+    @media (max-width: 620px) {
+      .wrap { width: min(100% - 26px, var(--max)); }
+      .nav-inner { align-items: flex-start; flex-direction: column; padding: 18px 0; }
+      .links { justify-content: flex-start; gap: 12px; }
+      .hero { padding-top: 24px; }
+      .hero-media img { aspect-ratio: 16 / 7; }
+      h1 { font-size: 52px; }
+      section { padding: 54px 0; }
+      .stats,
+      .evidence,
+      .deck-grid {
+        grid-template-columns: 1fr;
+      }
+      .step {
+        grid-template-columns: 56px 1fr;
+        gap: 18px;
+      }
+      .signal,
+      .bar-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+      .signal-value,
+      .bar-row strong {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="../../index.html">Jean Batista</a>
+        <nav class="links" aria-label="Project links">
+          <a href="../../index.html#work">Portfolio</a>
+          <a href="../Documents/PDP_Story_cleaned.pptx">PowerPoint</a>
+          <a href="../Documents/PDP_Working_Datasets.xlsx">Workbook</a>
+          <a href="https://doi.org/10.3102/00346543251361903">Research</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="wrap">
+          <figure class="hero-media">
+            <img src="../../assets/student-progression/classroom-cover.jpg" alt="Rachel Morales teaching in a PS 196 classroom.">
+          </figure>
+          <div class="hero-grid">
+            <div>
+              <div class="eyebrow">PS 196 - New York City</div>
+              <h1>Student Observations Study</h1>
+              <p class="lead">A research-backed classroom intervention study for Rachel Morales, built to measure whether specific tactics improved confidence, engagement, and classroom management over time.</p>
+            </div>
+            <div class="metric-large">
+              <strong>+134%</strong>
+              <span>daily classroom score growth from baseline to mastery</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Research and goal</div>
+            <h2>We started with evidence, then tested it in the classroom.</h2>
+          </div>
+          <div class="section-copy">
+            <p>Rachel Morales was completing a childhood development practicum at PS 196. The project goal was to observe the results of implementing intervention tactics, not just describe the classroom from memory.</p>
+            <p>We used Korpershoek, de Boer, and Mouw's 2025 meta-analysis as the research anchor. The article reviewed 76 controlled classroom-management intervention studies and found a small but significant positive effect, which gave the project a clear research basis before the baseline observations began.</p>
+            <a class="source-link" href="https://doi.org/10.3102/00346543251361903" target="_blank" rel="noopener noreferrer"><span>Research citation</span> -></a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap">
+          <div class="stats">
+            <div class="stat"><strong>40</strong><span>school days observed from baseline through mastery</span></div>
+            <div class="stat"><strong>13</strong><span>classrooms represented across general education, ICT, and self-contained settings</span></div>
+            <div class="stat"><strong>5</strong><span>signals used to track classroom-management movement</span></div>
+            <div class="stat"><strong>3</strong><span>phases: baseline, strategy implementation, and mastery</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Pipeline</div>
+            <h2>From research to progress notes.</h2>
+          </div>
+          <div class="pipeline">
+            <article class="step"><div class="step-number">1</div><div><h3>Research</h3><p>Use the article to frame why intervention tactics were worth testing and what kind of classroom change would matter.</p></div></article>
+            <article class="step"><div class="step-number">2</div><div><h3>Observe baseline</h3><p>Collect classroom observations before changing the routine so the project has a real starting point.</p></div></article>
+            <article class="step"><div class="step-number">3</div><div><h3>Implement strategy</h3><p>Introduce specific tactics, including clearer expectations, routines, proactive reminders, PBIS praise, and SEL language.</p></div></article>
+            <article class="step"><div class="step-number">4</div><div><h3>Track five signals</h3><p>Keep taking notes on the same signals over time so the study can separate a one-day improvement from a pattern.</p></div></article>
+            <article class="step"><div class="step-number">5</div><div><h3>Organize the data</h3><p>Convert observations into variables, group records by phase, and prepare the workbook for analysis.</p></div></article>
+            <article class="step"><div class="step-number">6</div><div><h3>Visualize results</h3><p>Replace dense tables with concise charts that show phase movement, signal growth, and evidence checks.</p></div></article>
+            <article class="step"><div class="step-number">7</div><div><h3>Tie back to research</h3><p>Connect the classroom results to the intervention literature and finish a report that explains what changed.</p></div></article>
+            <article class="step"><div class="step-number">8</div><div><h3>Share the report</h3><p>Prepare the findings for program directors, teachers, and parent-teacher conferences as concrete progress notes.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Main result</div>
+            <h2>The classroom score moved from 2.0 to 4.7.</h2>
+          </div>
+          <div class="results-grid">
+            <div>
+              <div class="bars" aria-label="Average classroom score by phase">
+                <div class="bar-row"><span>Baseline</span><div class="bar-track"><div class="bar-fill" style="width:40%"></div></div><strong>2.0</strong></div>
+                <div class="bar-row"><span>Strategy</span><div class="bar-track"><div class="bar-fill" style="width:81%"></div></div><strong>4.1</strong></div>
+                <div class="bar-row"><span>Mastery</span><div class="bar-track"><div class="bar-fill" style="width:94%"></div></div><strong>4.7</strong></div>
+              </div>
+              <p class="chart-note">Average daily score, out of 5. Strategy implementation produced the largest jump; mastery added another measurable gain.</p>
+            </div>
+            <div class="callout">
+              <strong>+0.6</strong>
+              <span>additional score movement after the first strategy phase, showing the refinement period still mattered.</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Signals</div>
+            <h2>The five-signal view made the improvement specific.</h2>
+          </div>
+          <div>
+            <div class="signals" aria-label="Baseline to mastery signal growth">
+              <div class="signal"><div class="signal-name">Confidence</div><div class="signal-track"><div class="signal-base" style="width:40%"></div><div class="signal-mastery" style="width:94%"></div></div><div class="signal-value">2.0 to 4.7</div></div>
+              <div class="signal"><div class="signal-name">PBIS</div><div class="signal-track"><div class="signal-base" style="width:28%"></div><div class="signal-mastery" style="width:94%"></div></div><div class="signal-value">1.4 to 4.7</div></div>
+              <div class="signal"><div class="signal-name">SEL language</div><div class="signal-track"><div class="signal-base" style="width:33%"></div><div class="signal-mastery" style="width:74%"></div></div><div class="signal-value">1.6 to 3.7</div></div>
+              <div class="signal"><div class="signal-name">Transitions</div><div class="signal-track"><div class="signal-base" style="width:45%"></div><div class="signal-mastery" style="width:88%"></div></div><div class="signal-value">2.3 to 4.4</div></div>
+              <div class="signal"><div class="signal-name">Prepared</div><div class="signal-track"><div class="signal-base" style="width:40%"></div><div class="signal-mastery" style="width:89%"></div></div><div class="signal-value">2.0 to 4.4</div></div>
+            </div>
+            <p class="chart-note">PBIS strategy use showed the sharpest growth. SEL language improved too, but remained the clearest next practice target.</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Evidence checks</div>
+            <h2>The report checked whether the results held up.</h2>
+          </div>
+          <div class="evidence">
+            <div class="evidence-item"><strong>11 / 13</strong><p>repeat classrooms scored higher on the last visit than the first.</p></div>
+            <div class="evidence-item"><strong>r = 0.91</strong><p>transition checklist completion lined up with transition ratings.</p></div>
+            <div class="evidence-item"><strong>r = 0.83</strong><p>preparedness checklist completion lined up with preparedness ratings.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="wrap section-grid">
+          <div>
+            <div class="eyebrow">Redesigned deck</div>
+            <h2>A shorter presentation with a cleaner story.</h2>
+            <p class="lead">The original long slideshow was rebuilt into seven slides with a cover, research plan, measurement design, concise charts, evidence checks, and report outcomes.</p>
+          </div>
+          <div class="deck-grid">
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide1.PNG" alt="Redesigned cover slide."><figcaption class="slide-caption"><span>Slide 01</span><span>Cover</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide2.PNG" alt="Research anchor and project plan slide."><figcaption class="slide-caption"><span>Slide 02</span><span>Research</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide3.PNG" alt="Measurement design slide."><figcaption class="slide-caption"><span>Slide 03</span><span>Design</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide4.PNG" alt="Main result phase chart slide."><figcaption class="slide-caption"><span>Slide 04</span><span>Result</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide5.PNG" alt="Five signal movement slide."><figcaption class="slide-caption"><span>Slide 05</span><span>Signals</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide6.PNG" alt="Evidence checks slide."><figcaption class="slide-caption"><span>Slide 06</span><span>Checks</span></figcaption></figure>
+            <figure class="slide-card"><img src="../../assets/student-progression/slides/Slide7.PNG" alt="Final report audience slide."><figcaption class="slide-caption"><span>Slide 07</span><span>Report</span></figcaption></figure>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">Student Observations Study - Rachel Morales, PS 196 - Analysis and reporting by Jean Batista.</div>
+    </footer>
+  </div>
+</body>
+</html>
